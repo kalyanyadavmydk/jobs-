@@ -1,0 +1,110 @@
+<mat-tab-group>
+  <mat-tab label="Post a Job">
+      <mat-card>
+        <form (submit)="formsubmit(update)" #update="ngForm">
+      
+          <mat-form-field style="border-right: 150px;">
+            <mat-label>Company :</mat-label>
+            <input matInput type="text" name="company"  required  ngModel>
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Company Website :</mat-label>
+            <input matInput type="url" name="website"  required  ngModel>
+          </mat-form-field><br>
+      
+          <mat-form-field>
+            <mat-label>Position/Role :</mat-label>
+            <input matInput type="text" name="role"  required  ngModel>
+          </mat-form-field>
+          
+          <mat-form-field>
+            <mat-label>Experience needed:</mat-label>
+            <mat-select [(value)]="Experience">
+              <mat-option value="Fresher">Fresher</mat-option>
+              <mat-option value="Intern">Intern</mat-option>
+              <mat-option value="Experience">Experience</mat-option>
+            </mat-select>
+          </mat-form-field><br>
+      
+          <mat-form-field>
+            <mat-label>Location:</mat-label>
+            <input matInput type="text" name="location" ngModel required  >
+          </mat-form-field>
+           
+          <mat-form-field>
+            <mat-label>Batch:</mat-label>
+            <input matInput type="number" name="batch" ngModel required  >
+          </mat-form-field><br>
+      
+         <mat-form-field>
+           <mat-label>Degree</mat-label>
+           <mat-select [formControl]="toppings" multiple >
+             <mat-option *ngFor="let topping of degree" [value]="topping">{{topping}}</mat-option>
+           </mat-select>
+         </mat-form-field>
+         
+         <mat-form-field>
+          <mat-label>Job Link:</mat-label>
+          <input matInput type="url" name="link" ngModel required  >
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>Last Date To Apply:</mat-label>
+          <input matInput type="date" name="date" ngModel required>
+        </mat-form-field><br>
+      
+           <button mat-flat-button color="primary" type="submit" >Submit</button>
+         </form>
+         
+      </mat-card>
+      
+    
+  </mat-tab>
+  <mat-tab label="Check Jobs">
+
+    <div style="background-color: lightyellow;">
+      <mat-form-field>
+        <mat-label>Filter:</mat-label>
+        <mat-select [(value)]="sort">
+          <mat-option value="Fresher">Fresher</mat-option>
+          <mat-option value="Intern">Intern</mat-option>
+          <mat-option value="Experience">Experience</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      
+
+      <button style="margin-left: 50px;" mat-flat-button (click)="sortjob(sort)">Apply Filter</button>
+    </div>
+
+
+
+    <mat-grid-list cols=3 rowHeight="5:4">
+      <div *ngFor="let job of joblist">
+        <mat-grid-tile>
+          <mat-card style="background-color: lightgreen;">
+            <mat-card-header>
+              <div mat-card-avatar >
+                <img style="border-radius: 50px;" [src]='job[9]'  height="42" width="42">
+              </div>
+              <mat-card-title>{{job[1]}}</mat-card-title>
+              <mat-card-subtitle>is Hiring For {{job[4]}} Candidates</mat-card-subtitle>
+            </mat-card-header>
+            <!-- <p>{{job[1]}} is Hiring For {{job[4]}} Candidates </p> -->
+            <p><a href={{job[2]}}>Company website</a></p>
+            <p>Position//Role: {{job[3]}}</p>
+            <p>Location: {{job[5]}}</p>
+            <p>Batch:{{job[6]}}</p>
+            <p>Degree:
+            <span *ngFor="let i of job[7]">{{i}}:</span></p>
+            <a href={{job[8]}}><button mat-flat-button color="primary">Apply</button></a>
+            <button style="margin-left: 50px;" mat-flat-button (click)="deletejob(job[0])">Delete</button>
+          </mat-card>
+        </mat-grid-tile>
+      </div>
+      
+  
+    </mat-grid-list>
+  </mat-tab>
+</mat-tab-group>
