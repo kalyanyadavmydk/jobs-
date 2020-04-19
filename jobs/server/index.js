@@ -56,7 +56,7 @@ app.delete('/delete/job',(req,res)=>{
     })
 })
 app.get('/sort/job',(req,res)=>{
-    job.find({experience:req.query.experience,deadline:{$gte:C}},function(err,docs){
+    job.find({experience:req.query.experience,deadline:{$gte:new Date()}},function(err,docs){
         if(err){
             res.send(err)
         }
